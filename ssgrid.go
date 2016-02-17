@@ -89,11 +89,10 @@ func (grid *SSGrid) Update(x, y, num int) {
 //  within the subgrid described by rect.
 //  This operation will take O(logm * logn) time.
 func (grid *SSGrid) Subsum(rect *SSRect) int {
-    fmt.Println(rect.ContainsRect(grid.root.bounds))
     return grid.root.subsum(rect)
 }
 
-//  Displays the subgrid described by rect.
+//  Provides the string representing the subgrid described by rect.
 func (grid *SSGrid) DisplayRect(rect *SSRect) string {
     var buffer bytes.Buffer
     for r := rect.L; r <= rect.R; r++ {
@@ -128,8 +127,8 @@ func NewSSGrid(m, n int) *SSGrid {
 
 
 //  SSQuad is an internal structure. It is a QuadTree which also contains
-//  information about which rectangle it is responsible for as well as total
-//  sum of this subrectangle.
+//  information about which subgrid it is responsible for as well as the sum
+//  of the entire subgrid
 type ssquad struct {
     ul      *ssquad
     ur      *ssquad
@@ -233,17 +232,18 @@ func (quad *ssquad) update(x, y, num int) {
     }
 }
 
-func (quad *ssquad) subsum(rect *SSRect) int{
-    //  case: no intersection
+func (quad *ssquad) subsum(rect *SSRect) int {
+    //  case: no intersection = irrelevant
     if rect.DisjointFrom(quad.bounds) {
         return 0
     }
-    //  case: fully encapsulated
+    //  case: fully encapsulated by input
     if rect.ContainsRect(quad.bounds) {
         return quad.data
     }
-
+    //  case: partial encapsulation
     sums := make(chan int, 4)
+    sum := 0
     calcSum := func (q *ssquad) {
         if q == nil {
             sums <- 0
@@ -255,7 +255,6 @@ func (quad *ssquad) subsum(rect *SSRect) int{
     go calcSum(quad.ur)
     go calcSum(quad.bl)
     go calcSum(quad.br)
-    sum := 0
     for i := 0; i < 4; i++ {
         sum += <- sums
     }

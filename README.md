@@ -1,7 +1,8 @@
 Subsums
 =======
 
-This project is incomplete. No functionality guaranteed.
+This project is incomplete. No functionality guaranteed. Current progress yields what is suspected (but not thoroughly tested) to be proper updating and reading.
+
 
 The goal of this project is to produce an implementation of a 2D grid m*n of numbers with two features:
 
