@@ -1,6 +1,8 @@
 Subsums
 =======
 
+This project is incomplete. No functionality guaranteed.
+
 The goal of this project is to produce an implementation of a 2D grid m*n of numbers with two features:
 
 - Update any single cell
