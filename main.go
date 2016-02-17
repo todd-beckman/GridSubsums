@@ -43,11 +43,11 @@ func main() {
     printArr(dummy[:])
     fmt.Println()
     fmt.Println("SSGrid:")
-    fmt.Println(grid.DisplayRect(SSRect{L: 0, T: 0, R: w - 1, B: h - 1}))
+    fmt.Println(grid.DisplayRect(&SSRect{L: 0, T: 0, R: w - 1, B: h - 1}))
     fmt.Println()
-    rect := SSRect{L: 1, T: 2, R: 4, B: 3}
-    fmt.Println("Sample rect from:", rect)
+    rect := &SSRect{L: 1, T: 2, R: 4, B: 3}
+    fmt.Println("Sample rect from:", *rect)
     fmt.Println(grid.DisplayRect(rect))
-    fmt.Println(grid.Subsum(SSRect{L: 1, T: 2, R: 4, B: 3}))
+    fmt.Println(grid.Subsum(rect))
 }
 
