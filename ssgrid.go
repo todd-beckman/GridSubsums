@@ -8,7 +8,9 @@ import (
 
 
 
-//  SSRect structure contains data pertaining to 
+//  SSRect structure describes a rectangle by the Left,
+//  Right, Top, and Bottom coordinates. Additional methods
+//  are provided that assist with the SSGrid logic directly.
 type SSRect struct {
     L    int
     T    int
