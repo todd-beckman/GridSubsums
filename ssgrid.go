@@ -53,7 +53,7 @@ func (rect *SSRect) ContainsRect(other *SSRect) bool {
 //  DisjointRect determines if the other SSRect does not collide
 //  with this one.
 func (rect *SSRect) DisjointFrom(other *SSRect) bool {
-    return rect.T >= other.B || other.T >= rect.B || rect.R <= other.L || other.R <= rect.L
+    return rect.T > other.B || other.T > rect.B || rect.R < other.L || other.R < rect.L
 }
 
 
