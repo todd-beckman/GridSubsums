@@ -63,13 +63,13 @@ func (rect *SSRect) DisjointFrom(other *SSRect) bool {
 
 //  SSGrid Structure encapsulates the 2D Grid challenge.
 //  The main features are the Update and Subsum methods.
-//  For all running times provided, m is the grid's width
-//  and n is the grid's height.
+//  For all running times provided, n is whichever width
+//  or height is greater.
 type SSGrid struct {
     root *ssquad
 }
 
-//  Reads a value in the grid in O(logm * logn) time
+//  Reads a value in the grid in O(log(n)) time
 func (grid *SSGrid) Read(x, y int) int {
     if !grid.root.bounds.ContainsPoint(x, y) {
         return 0
@@ -78,7 +78,7 @@ func (grid *SSGrid) Read(x, y int) int {
 }
 
 //  Update will update the grid location (x, y) with num.
-//  This operation will take O(logm * logn) time.
+//  This operation will take O(log(n)) time.
 func (grid *SSGrid) Update(x, y, num int) {
     if !grid.root.bounds.ContainsPoint(x, y) {
         fmt.Println("(", x, ",", y, ") is not in the grid.")
@@ -89,7 +89,7 @@ func (grid *SSGrid) Update(x, y, num int) {
 
 //  Subsum will calculate the sum of all cells contained
 //  within the subgrid described by rect.
-//  This operation will take O(logm * logn) time.
+//  This operation will take span O(log(n)) time.
 func (grid *SSGrid) Subsum(rect *SSRect) int {
     return grid.root.subsum(rect)
 }
